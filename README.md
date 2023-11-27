@@ -100,3 +100,71 @@ In this assignment, you'll deepen your understanding of querying MySQL database 
   - A Word document containing screenshots of your script's output.
 - Ensure to include descriptions and the correct output format in your screenshots.
 - Remember to include your name, date, and assignment details in the Word document.
+
+## Assignment Overview 8.2 - Update & Deletes
+
+This lab focuses on updating and deleting records from a MySQL database, as well as enhancing your Python scripting skills to interact with the database.
+
+### 1. MySQL Instructions
+
+#### Update Records
+- Syntax: `UPDATE <table> SET <columns> WHERE <column> = <value>;`
+- Example: 
+  ```sql
+  UPDATE player
+  SET team_id = 2, first_name = 'Gollum', last_name = 'Ring Stealer' WHERE first_name = 'Smeagol';
+  ```
+
+#### Delete Records
+- Syntax: `DELETE FROM <table> WHERE <column> = <value>;`
+- Example: 
+  ```sql
+  DELETE FROM player WHERE first_name = 'Smeagol';
+  ```
+
+#### Insert Records
+- Syntax: `INSERT INTO <table> (<columns>) VALUES (<values>);`
+- Example: 
+  ```sql
+  INSERT INTO player (first_name, last_name, team_id) VALUES ('Smeagol', 'Shire Folk', 1);
+  ```
+
+### 2. Python Instructions
+
+#### Function Creation
+- Develop a Python function `show_films(cursor, title)` to display contents of the film table.
+- Utilize INNER JOINs in the SQL query for genre and studio names.
+- Ensure proper formatting and iteration over the dataset to display the results.
+
+#### Python Example
+```python
+def show_films(cursor, title):
+    # SQL query with INNER JOIN
+    cursor.execute("select film_name as Name, film director as Director, genre_name as Genre, studio_name as 'Studio Name' from film INNER JOIN genre ON film.genre_id=genre.genre_id INNER JOIN studio ON film.studio_id=studio.studio_id")
+    films = cursor.fetchall()
+    print("\n -- {} --".format(title))
+    for film in films:
+        print("Film Name: {}\nDirector: {}\nGenre Name: {}\nStudio Name: {}\n".format(film[0], film[1], film[2], film[3]))
+```
+
+### 3. Assignment Instructions
+
+1. **File Setup**:
+   - Create a new file named `movies_update_and_delete.py` in the `module_8` directory.
+
+2. **Database Operations**:
+   - Connect to the movies database.
+   - Insert a new record (avoid using 'Star Wars').
+   - Update the film 'Alien' to the 'Horror' genre.
+   - Delete the movie 'Gladiator'.
+
+3. **Execution and Documentation**:
+   - After each database operation, call `show_films(cursor, "DISPLAYING FILMS")` to display the current state of the film table.
+   - Document the process and results. Take screenshots or copy the output to a Word document.
+   - Ensure your output matches the expected output format.
+
+### Deliverable
+
+- Submit the `movies_update_and_delete.py` Python file.
+- Include a Word document with screenshots or copied output showcasing your results.
+- Ensure the document contains your name, date, and assignment details.
