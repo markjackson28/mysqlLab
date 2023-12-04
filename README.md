@@ -168,3 +168,39 @@ def show_films(cursor, title):
 - Submit the `movies_update_and_delete.py` Python file.
 - Include a Word document with screenshots or copied output showcasing your results.
 - Ensure the document contains your name, date, and assignment details.
+
+
+## Assignment Overview 10 - Milestone #2
+
+Milestone #2 focuses on refining your Entity-Relationship Diagram (ERD) and creating a functional database with sample data in MySQL. You will also write a Python script to display the data from each table.
+
+### 1. ERD and Business Rules Review
+
+- **ERD Refinement**: Re-examine your initial ERD. Ensure that it includes attributes for each table and revise as necessary.
+- **Normalization**: Confirm that all tables are in the Third Normal Form (3NF) to ensure database efficiency and reduce redundancy.
+
+### 2. SQL Script Creation
+
+- **Table Creation**: Write a `.sql` script to create the tables in MySQL as defined in your ERD.
+- **Data Population**: Populate each table with at least 6 records (or fewer if specified in your case study).
+
+### 3. Python Script for Data Display
+
+- Write a Python script similar to the 'movies example' from a previous assignment. The script should display data from each table in your database.
+- The script should connect to your MySQL database, query each table, and output the results.
+
+### 4. Documentation and Deliverables
+
+- **Python Scripts**: Include all Python scripts used for displaying table data.
+- **Word Document**: Create a document containing:
+  - Your group name and members.
+  - The revised ERD.
+  - Screenshots of the data displayed from each table, as output by your Python script.
+
+### 5. Submission Guidelines
+
+- **Packaging**: Zip up all Python scripts and the Word document.
+- **Posting**: Have one group member post the zipped file to your group forum with the subject line "Milestone 2".
+- **GitHub**: Each team member should push the deliverable to their respective GitHub accounts.
+- **No Blackboard Upload**: File uploads to Blackboard are not necessary for this milestone.
+
