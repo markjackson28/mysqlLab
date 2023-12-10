@@ -1,3 +1,6 @@
+from datetime import datetime
+current_month = datetime.today().strftime('%Y-%m')
+
 import mysql.connector
 from mysql.connector import errorcode
 from mysql.connector.constants import SQLMode
@@ -31,6 +34,8 @@ config = { # Using the movies_user
 try:
     db = mysql.connector.connect(**config)
     db.sql_mode = ''
+
+    db.autocommit = True
 
     print("Database user {} connected to MySQL on host {} with database {}".format(config["user"], config["host"], config["database"]))
     input("\n Press 'Enter' to continue...\n")
@@ -67,17 +72,18 @@ sql = '''CREATE TABLE IF NOT EXISTS Clients(
     LastName CHAR(20),
     Address CHAR(200),
     PhoneNumber CHAR(12),
+    DateAdded DATE,
     PRIMARY KEY (ClientID)
 )'''
 cursor.execute(sql)
 
 # Populate Clients Table (Data NOT provided by case study)
-cursor.execute("INSERT INTO Clients VALUES (1, 'Jersey Dairy Farm', 'Bill', 'Jersey', '123 Fake Street', '11234567890')")
-cursor.execute("INSERT INTO Clients VALUES (2, 'Scott Auto Sales - Sales Department', 'Michael', 'Scott', '17 Playground Ave', '1596237891')")
-cursor.execute("INSERT INTO Clients VALUES (3, 'Scott Auto Sales - Advertising Department', 'Jim', 'Scott', '17 Playground Ave', '03216549871')")
-cursor.execute("INSERT INTO Clients VALUES (4, '', 'Mike', 'Dillber', '62 Parkway Drive', '01112223333')")
-cursor.execute("INSERT INTO Clients VALUES (5, '', 'John', 'Bengal', '', '12223334444')")
-cursor.execute("INSERT INTO Clients VALUES (6, 'Greene Pharmacy', 'Henry', 'Greene', '911 Medicine Drive', '65984231657')")
+cursor.execute("INSERT INTO Clients VALUES (1, 'Jersey Dairy Farm', 'Bill', 'Jersey', '123 Fake Street', '11234567890', '2023-01-01')")
+cursor.execute("INSERT INTO Clients VALUES (2, 'Scott Auto Sales - Sales Department', 'Michael', 'Scott', '17 Playground Ave', '1596237891', '2023-02-01')")
+cursor.execute("INSERT INTO Clients VALUES (3, 'Scott Auto Sales - Advertising Department', 'Jim', 'Scott', '17 Playground Ave', '03216549871', '2023-02-01')")
+cursor.execute("INSERT INTO Clients VALUES (4, '', 'Mike', 'Dillber', '62 Parkway Drive', '01112223333', '2023-04-01')")
+cursor.execute("INSERT INTO Clients VALUES (5, '', 'John', 'Bengal', '', '12223334444', '2023-06-01')")
+cursor.execute("INSERT INTO Clients VALUES (6, 'Greene Pharmacy', 'Henry', 'Greene', '911 Medicine Drive', '65984231657', '2023-06-01')")
 
 # Create Assets Table
 sql = '''CREATE TABLE IF NOT EXISTS Assets(
@@ -102,7 +108,7 @@ cursor.execute("INSERT INTO Assets VALUES (5, 'Real Estate', 7, 187000)")
 # Create Transactions Table, Date expects "xx/yy/zzzz" format
 sql = '''CREATE TABLE IF NOT EXISTS Transactions(
     ClientID INT NOT NULL,
-    Date CHAR(10),
+    Date DATE,
     TransNumber INT NOT NULL,
     Amount DOUBLE,
     PRIMARY KEY (TransNumber),
@@ -111,12 +117,36 @@ sql = '''CREATE TABLE IF NOT EXISTS Transactions(
 cursor.execute(sql)
 
 # Populate Transactions Table
-cursor.execute("INSERT INTO Transactions VALUES (1, '11/27/2023', 1, 231.49)")
-cursor.execute("INSERT INTO Transactions VALUES (1, '10/14/2023', 2, 349.67)")
-cursor.execute("INSERT INTO Transactions VALUES (2, '12/03/2023', 3, 50000.00)")
-cursor.execute("INSERT INTO Transactions VALUES (2, '08/30/2023', 4, 40000.00)")
-cursor.execute("INSERT INTO Transactions VALUES (6, '01/31/2023', 5, -156.34)")
-cursor.execute("INSERT INTO Transactions VALUES (6, '07/28/2023', 6, -214.73)")
+cursor.execute("INSERT INTO Transactions VALUES (1, '2023-11-27', 1, 231.49)")
+cursor.execute("INSERT INTO Transactions VALUES (1, '2023-10-14', 2, 349.67)")
+
+# More than 10 for 2nd ID for testing
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-02', 3, 50000.00)")
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-06', 4, 40000.00)")
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-10', 5, 50000.00)")
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-11', 6, 40000.00)")
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-12', 7, 50000.00)")
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-14', 8, 40000.00)")
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-15', 9, 50000.00)")
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-17', 10, 40000.00)")
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-18', 11, 50000.00)")
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-20', 12, 40000.00)")
+cursor.execute(f"INSERT INTO Transactions VALUES (2, '{current_month}-22', 13, 40000.00)")
+
+# More than 10 for 6th ID for testing
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-01', 14, -156.34)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-02', 15, -214.73)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-03', 16, 15.34)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-04', 17, 24.73)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-05', 18, 1568.34)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-06', 19, 2174.73)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-07', 20, 1566.34)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-08', 21, 2124.73)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-09', 22, 56.34)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-10', 23, 2314.73)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-11', 24, 15.34)")
+cursor.execute(f"INSERT INTO Transactions VALUES (6, '{current_month}-12', 25, 2214.73)")
+
 
 # Display Data
 cursor.execute("SELECT * FROM EMPLOYEES")
