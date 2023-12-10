@@ -1,4 +1,4 @@
-# README for CSD 310 - Movies Lab
+# README for CSD 310 - MySQL Labs
 
 ## Assignment Overview 6.2 - Setup
 
