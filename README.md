@@ -204,3 +204,39 @@ Milestone #2 focuses on refining your Entity-Relationship Diagram (ERD) and crea
 - **GitHub**: Each team member should push the deliverable to their respective GitHub accounts.
 - **No Blackboard Upload**: File uploads to Blackboard are not necessary for this milestone.
 
+## Assignment Overview 11 - Milestone #3
+
+Milestone #3 is about deriving valuable business insights from your database. This involves creating reports based on the data, which will aid in making informed business decisions as outlined in your case study.
+
+### 1. Understanding the Business Requirements
+
+- **Case Study Review**: Revisit the case study to identify key business decisions.
+- **Report Identification**: Determine what information from the tables will be useful for these decisions. Plan to create a minimum of three different reports.
+
+### 2. Report Description and Script Writing
+
+- **Report Descriptions**: For each report, provide a clear and detailed description, explaining its purpose and the insights it aims to deliver.
+- **Python Script Development**: Write Python scripts to generate these reports. The scripts should:
+  - Connect to your MySQL database.
+  - Execute the necessary SQL queries to retrieve the data.
+  - Format and display the results clearly.
+
+### 3. Execution and Documentation
+
+- **Running the Scripts**: Execute each Python script and capture the output.
+- **Screenshots**: Take screenshots of each report as displayed by the Python script.
+
+### 4. Documentation and Deliverables
+
+- **Python Scripts**: Include all scripts used for generating the reports.
+- **Word Document**: Create a document containing:
+  - Your group name and members.
+  - Detailed descriptions of each report.
+  - Screenshots showing the results of the queries.
+
+### 5. Submission Guidelines
+
+- **Packaging**: Zip up all Python scripts and the Word document.
+- **Posting**: Have one group member post the zipped file to your group forum in Blackboard with the subject line "Milestone 3".
+- **GitHub**: Each team member should push the deliverable to their respective GitHub accounts.
+- **No Blackboard Upload**: File uploads to Blackboard are not necessary for this milestone.
