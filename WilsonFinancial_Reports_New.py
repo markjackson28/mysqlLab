@@ -17,15 +17,17 @@ def generate_new_clients_report():
     db = connect_to_database()
     cursor = db.cursor()
 
+    current_year = datetime.datetime.now().year
     query = """
     SELECT c.ClientID, c.FirstName, c.LastName, COUNT(a.AssetType) AS NumberOfAssets, SUM(a.Value) AS TotalAssetValue
     FROM Clients c
     LEFT JOIN Assets a ON c.ClientID = a.ClientID
+    WHERE YEAR(c.DateAdded) = %s
     GROUP BY c.ClientID;
     """
-    cursor.execute(query)
+    cursor.execute(query, (current_year,))
 
-    print("\n-- New Clients Report --\n")
+    print(f"\n-- New Clients Report for the Year {current_year} --\n")
     for row in cursor:
         print(f"Client ID: {row[0]}, Name: {row[1]} {row[2]}, Number of Assets: {row[3]}, Total Asset Value: {row[4]}")
     cursor.close()
