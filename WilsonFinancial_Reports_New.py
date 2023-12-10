@@ -1,7 +1,6 @@
 import mysql.connector
 import datetime
 
-
 def connect_to_database():
     config = {
         "user": "movies_user",
@@ -12,14 +11,13 @@ def connect_to_database():
     }
     return mysql.connector.connect(**config)
 
-
 def generate_new_clients_report():
     db = connect_to_database()
     cursor = db.cursor()
 
     current_year = datetime.datetime.now().year
     query = """
-    SELECT c.ClientID, c.FirstName, c.LastName, COUNT(a.AssetType) AS NumberOfAssets, SUM(a.Value) AS TotalAssetValue
+    SELECT c.ClientID, c.FirstName, c.LastName, c.DateAdded, COUNT(a.AssetType) AS NumberOfAssets, SUM(a.Value) AS TotalAssetValue
     FROM Clients c
     LEFT JOIN Assets a ON c.ClientID = a.ClientID
     WHERE YEAR(c.DateAdded) = %s
@@ -29,10 +27,10 @@ def generate_new_clients_report():
 
     print(f"\n-- New Clients Report for the Year {current_year} --\n")
     for row in cursor:
-        print(f"Client ID: {row[0]}, Name: {row[1]} {row[2]}, Number of Assets: {row[3]}, Total Asset Value: {row[4]}")
+        print(
+            f"Client ID: {row[0]}, Name: {row[1]} {row[2]}, Date Added: {row[3]}, Number of Assets: {row[4]}, Total Asset Value: {row[5]}")
     cursor.close()
     db.close()
-
 
 def generate_asset_overview(client_id):
     db = connect_to_database()
@@ -53,11 +51,16 @@ def generate_asset_overview(client_id):
         assets_count += 1
         print(f"Asset Type: {asset[0]}, Asset ID: {asset[1]}, Value: {asset[2]}")
 
-    average_value = total_value / assets_count if assets_count > 0 else 0
-    print(f"\nTotal Value of Assets: {total_value}, Average Value: {average_value}")
+    if assets_count > 0:
+        average_value = total_value / assets_count
+        formatted_total_value = "{:.2f}".format(total_value)
+        formatted_average_value = "{:.2f}".format(average_value)
+        print(f"\nTotal Value of Assets: {formatted_total_value}, Average Value: {formatted_average_value}")
+    else:
+        print("\nNo assets found for this client.")
+
     cursor.close()
     db.close()
-
 
 def generate_transaction_report(client_id):
     db = connect_to_database()
@@ -78,10 +81,10 @@ def generate_transaction_report(client_id):
         transactions_count += 1
         print(f"Date: {trans[0]}, Transaction Number: {trans[1]}, Amount: {trans[2]}")
 
-    print(f"\nTotal Transactions Value: {total_amount}, Number of Transactions: {transactions_count}")
+    formatted_total_amount = "{:.2f}".format(total_amount)
+    print(f"\nTotal Transactions Value: {formatted_total_amount}, Number of Transactions: {transactions_count}")
     cursor.close()
     db.close()
-
 
 def main():
     while True:
@@ -104,7 +107,6 @@ def main():
             break
         else:
             print("Invalid choice, please try again.")
-
 
 if __name__ == "__main__":
     main()
